@@ -1,0 +1,44 @@
+openapi: 3.0.0
+info:
+  title: Retsinformation GPT Action
+  version: 1.0.0
+  description: Henter gældende love og bekendtgørelser fra retsinformation.dk
+servers:
+  - url: https://din-api.fly.dev
+paths:
+  /lovgivning:
+    get:
+      summary: Søg efter gældende lovgivning
+      operationId: hentGaeldendeLovgivning
+      parameters:
+        - in: query
+          name: search
+          required: true
+          schema:
+            type: string
+          description: Søgeord for gældende regler (fx 'trafik', 'arbejdsmiljø')
+      responses:
+        '200':
+          description: Resultatliste over gældende regler
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultater:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        titel:
+                          type: string
+                        id:
+                          type: integer
+                        type:
+                          type: string
+                        dato:
+                          type: string
+                        eli:
+                          type: string
+                        link:
+                          type: string
